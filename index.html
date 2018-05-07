@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>version 1总结</title>
+  <style>
+    #container, html, body{
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      width: 100%;
+    }
+  </style>
+</head>
+<body>
+  <div id="container"></div>
+</body>
+<script src="echarts.min.js"></script>
+<script>
+  window.onload = function () {
+    var charts = echarts.init(document.querySelector('#container'))
+    var option = {
+      title: {
+        text: '天宝移动端 version1 - 前端总结'
+      },
+      tooltip: {
+        trigger: 'item',
+        triggerOn: 'mousemove',
+        formatter: function (item) {
+          if (!item.data.label) {
+            return item.data.name
+          } else {
+            return item.data.label
+          }
+        }
+      },
+      series: [
+        {
+          type: 'tree',
+          data: [
+            {
+              name: '前端总结',
+              children: [
+                {
+                  name: '代码规范',
+                  children: [
+                    {
+                      name: '注释',
+                      children: [
+                        {name: '变量注释', label: 'var type = passenger.type // 用于判断乘客类型'},
+                        {name: '函数注释', label: `/**<br>* @description <br>* @param <br>* @return <br>**/`}
+                      ]
+                    },
+                    {
+                      name: '命名',
+                      children: [
+                        {
+                          name: '函数命名',
+                          children: [
+                            {name: 'setFn/getFn', label: 'do something'},
+                            {name: 'isFn', label: 'return Boolean'},
+                            {name: 'addFn/removeFn', label: 'add/remove something'},
+                            {name: 'closeFn/openFn', label: 'open/close something'},
+                            {name: '......'}
+                          ]
+                        },
+                        {name: '变量命名', label: '驼峰<br>let type = passengerType<br>const TYPE = "pass"'},
+                        {name: 'class命名', label: '"-"分割<br>如vue文件名为select.vue<br>下级元素按类型分为：select-title/select-footer/select-item/select-item-label等等'}
+                      ]
+                    },
+                    {
+                      name: '格式',
+                      children: [
+                        {name: '运算符前后加空格', label: 'var a = 1 + 1<br>var b=1+1'},
+                        {name: '参照esLint'}
+                      ]
+                    }
+                  ]
+                },
+                {
+                  name: 'JS/VUE',
+                  children: [
+                    {name: 'JS最佳实践'},
+                    {
+                      name: 'Vue',
+                      children: [
+                        {
+                          name: 'watch',
+                          label: '作用域问题，不能采用箭头函数',
+                          children: [
+                            {
+                              name: '深度监听',
+                              label: `watch:{<br>
+                                &nbsp;&nbsp;obj: {<br>
+                                  &nbsp;&nbsp;&nbsp;&nbsp;hanlder: function (v, o) {<br>
+                                    <br>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;},<br>
+                                    &nbsp;&nbsp;deep: true<br>
+                                &nbsp;&nbsp;}<br>
+                              }<br>`
+                            },
+                            {
+                              name: '浅监听',
+                              label: `watch: {<br>
+                                string () {<br>
+                              }<br>`
+                            }
+                          ]
+                        },
+                        {name: 'Router path 匹配顺序', label: '采用正则匹配，不是相等'},
+                        {name: 'v-for 一定要加key'},
+                        {name: 'props采用验证的写法'},
+                        {name: '自定义指令', label: '涉及到DOM操作，尽量采用指令的写法'},
+                        {name: 'VUE双向绑定原理', label: '数据劫持'},
+                        {name: '关于组件粒度', label: '适当的细化'},
+                        {name: '修改数组不视图不更新问题', label: '1.set<br>2.Object.assign'},
+                        {name: 'v-if/v-show', label: 'if重新渲染，show改变css样式<br>频繁切换采用v-show'},
+                        {
+                          name: '组件分类',
+                          children: [
+                            {name: 'view', label: '页面容器'},
+                            {name: 'global component', label: '全局组件'},
+                            {name: 'simple component', label: '复用性高基础组件，如button，input等'},
+                            {name: 'complex component', label: '复杂组件，包含交互/数据/逻辑等等<br>可以采用react概念分为容器组件和展示组件'}
+                          ]
+                        },
+                        {name: 'created放http请求', label: '延长白屏事件<br>不影响视图展示情况下放在mounted中'}
+                      ]
+                    }
+                  ]
+                },
+                {
+                  name: '前端工程化',
+                  children: [
+                    {
+                      name: '组件化开发',
+                      label: 'Keep Simple. Everything can be a component.',
+                      children: [
+                        {name: '页面上的每个 独立的 可视/可交互区域视为一个组件'},
+                        {name: '具有独立性，因此组件与组件之间可以 自由组合'},
+                        {name: '页面是组件的容器，负责组合组件形成功能完整的界面'}
+                      ]
+                    },
+                    {
+                      name: '模块化',
+                      children: [
+                        {name: 'JS模块化'},
+                        {name: 'CSS模块化'},
+                        {name: 'UI模块化'}
+                      ]
+                    },
+                    {
+                      name: '规范化',
+                      children: [
+                        {name: '目录结构定制'},
+                        {name: '编码规范'},
+                        {name: '前后端接口规范'},
+                        {name: '文档规范'},
+                        {name: '组件管理'},
+                        {name: 'git分支管理'},
+                        {name: 'commit提交规范'},
+                        {name: '.....'},
+                      ]
+                    },
+                    {name: '自动化构建部署', label: 'jenkins'},
+                    {
+                      name: '性能',
+                      children: [
+                        {name: '按需加载'},
+                        {name: '减少浏览器回流/重绘'},
+                        {
+                          name: '理解浏览器渲染引擎机制',
+                          children: [
+                            {name: 'CSS引擎', label: '顺序：上到下，右到左'},
+                            {name: 'JS引擎'}
+                          ]
+                        },
+                        {name: '......'}
+                      ]
+                    },
+                    {name: '可用性'},
+                    {name: '可维护性'},
+                    {name: '解耦', label: '很重要'},
+                    {name: '......'}
+                  ]
+                },
+                {
+                  name: '其他',
+                  children: [
+                    {name: '写之前', children: [{name: '想的更多，写的更少'}]},
+                    {name: '写的时候', children: [{name: '代码是写给别人看的'}]},
+                    {name: '写之后', children: [{name: '回顾代码，思考哪里能再优化'}]},
+                    {name: '调试', children: [
+                      {name: 'console'},
+                      {name: '断点'},
+                      {name: 'memory', label: '记录事件'},
+                      {
+                        name: 'vue-devtools',
+                        children: [
+                          {name: '查看每个vue文件状态'},
+                          {name: '追溯vuex数据流向'}
+                        ]
+                      }
+                    ]}
+                  ]
+                }
+              ]
+            }
+          ],
+          label: {
+            normal: {
+              position: 'left'
+            }
+          },
+          layout: 'orthogonal',
+          // orient: 'RL',
+          // symbol: 'arrow',
+          expandAndCollapse: true,
+          initialTreeDepth: 0
+        }
+      ]
+    }
+    charts.setOption(option)
+    window.onresize = charts.resize
+    charts.on('click', function (param) {
+      if (param.data.name === 'JS最佳实践') {
+        window.open('https://github.com/airbnb/javascript?utm_source=gold_browser_extension')
+      }
+    })
+  }
+</script>
+</html>
